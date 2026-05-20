@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ - G4 ToyStore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS Cơ bản */
+        :root {
+            --primary-color: #ff6b6b;
+            /* Đỏ san hô */
+            --secondary-color: #4ecdc4;
+            /* Xanh mint */
+            --text-color: #333333;
+            --bg-light: #f5f7fa;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- HEADER TOP --- */
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .search-bar {
+            display: flex;
+            width: 400px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 2px solid #e0e0e0;
+            border-right: none;
+            border-radius: 20px 0 0 20px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .search-bar input:focus {
+            border-color: var(--secondary-color);
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            border: 2px solid var(--secondary-color);
+            border-radius: 0 20px 20px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .search-bar button:hover {
+            background-color: #38b2ac;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-action {
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .btn-login {
+            background-color: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-login:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-cart {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-cart:hover {
+            background-color: #ee5253;
+        }
+
+        /* --- NAVBAR CHÍNH --- */
+        .main-nav {
+            background-color: #2c3e50;
+            padding: 0 50px;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item>a {
+            display: block;
+            padding: 15px 0;
+            color: var(--white);
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-item:hover>a {
+            color: var(--secondary-color);
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: var(--white);
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 10px 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+
+        .nav-item:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown li {
+            list-style: none;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .dropdown li:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 12px 20px;
+            color: var(--text-color);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .dropdown a:hover {
+            background-color: #f8f9fa;
+            color: var(--primary-color);
+            padding-left: 25px;
+        }
+
+        /* --- BANNER LỚN --- */
+        .hero-banner {
+            width: 100%;
+            height: 450px;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .hero-banner h2 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-banner p {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+        }
+
+        /* --- MỤC HÀNG LỚN (CATEGORIES) --- */
+        .main-content {
+            padding: 60px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Container bọc toàn bộ các danh mục */
+        .categories-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            padding: 20px 0;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Khối danh mục lớn */
+        .category-block {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Phần đầu danh mục (Icon + Chữ) */
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .cat-icon {
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+        }
+
+        .bg-1 {
+            background-color: #ffeaa7;
+        }
+
+        .bg-2 {
+            background-color: #ffcbdf;
+        }
+
+        .bg-3 {
+            background-color: #dff9fb;
+        }
+
+        .bg-4 {
+            background-color: #ffbe76;
+        }
+
+        .cat-text h3 {
+            color: #333;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .cat-text p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Lưới hiển thị sản phẩm */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* Thẻ sản phẩm */
+        .product-card {
+            background-color: #f8f9fa;
+            border: 2px solid #f1f2f6;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease;
+        }
+
+        /* Class bổ sung để giấu sản phẩm */
+        .product-card.hidden {
+            display: none;
+            opacity: 0;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            border-color: #4ecdc4;
+        }
+
+        .product-img {
+            font-size: 3rem;
+            margin-bottom: 12px;
+        }
+
+        .product-name {
+            font-size: 1rem;
+            color: #2f3542;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            color: #ff6b6b;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        .old-price {
+            font-size: 0.85rem;
+            color: #a4b0be;
+            text-decoration: line-through;
+            margin-left: 8px;
+            font-weight: 400;
+        }
+
+        /* Khu vực nút xem thêm */
+        .more-actions {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .btn-view-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 24px;
+            background-color: #ffffff;
+            color: #4ecdc4;
+            border: 2px solid #4ecdc4;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .btn-view-more:hover {
+            background-color: #4ecdc4;
+            color: white;
+        }
+
+        /* --- FOOTER --- */
+        .site-footer {
+            background-color: #2c3e50;
+            color: var(--white);
+            padding: 60px 50px 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p {
+            margin-bottom: 10px;
+            color: #bdc3c7;
+        }
+
+        .blog-list li {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .blog-list a {
+            color: #bdc3c7;
+            transition: color 0.3s;
+            display: block;
+        }
+
+        .blog-list a:hover {
+            color: var(--primary-color);
+        }
+
+        .blog-date {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 576px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .category-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- PHẦN 1: HEADER & TÌM KIẾM -->
+    <header class="header-top">
+        <div class="logo">
+            <!-- Đang ở user/, gọi trang chủ chỉ cần dùng home.html -->
+            <a href="home.html">
+                <h1>🧸 G4 ToyStore</h1>
+            </a>
+        </div>
+
+        <form class="search-bar" action="#">
+            <input type="text" placeholder="Tìm kiếm đồ chơi, thương hiệu...">
+            <button type="submit">Tìm</button>
+        </form>
+
+        <div class="header-actions">
+            <!-- Đang ở user/, gọi trang đăng nhập login.html ở cùng thư mục -->
+            <a href="login.html" class="btn-action btn-login">👤 Đăng Nhập</a>
+            <!-- Liên kết sang trang giỏ hàng nằm trong thư mục user/ -->
+            <a href="cart.html" class="btn-action btn-cart">🛒 Giỏ Hàng (0)</a>
+        </div>
+    </header>
+
+    <!-- PHẦN 2: THANH NAVBAR MENU -->
+    <nav class="main-nav">
+        <ul class="nav-list">
+            <li class="nav-item"><a href="home.html">Trang Chủ</a></li>
+            <li class="nav-item">
+                <a href="#">Sản Phẩm ▾</a>
+                <ul class="dropdown">
+                    <!-- Liên kết tới các trang lọc sản phẩm tương ứng trong mục user/ -->
+                    <li><a href="products.html?cat=lap-rap">Đồ chơi lắp ráp</a></li>
+                    <li><a href="products.html?cat=bup-be">Búp bê & Phụ kiện</a></li>
+                    <li><a href="products.html?cat=thong-minh">Đồ chơi thông minh</a></li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#">Thương Hiệu ▾</a>
+                <ul class="dropdown">
+                    <li><a href="brands.html?b=lego">LEGO</a></li>
+                    <li><a href="brands.html?b=hotwheels">Hot Wheels</a></li>
+                    <li><a href="brands.html?b=mylittlepony">My Little Pony</a></li>
+                    <li><a href="brands.html?b=bandai">Bandai</a></li>
+                </ul>
+            </li>
+            <!-- Thêm liên kết ẩn test thử để Ban Quản Trị đi sang thư mục Admin -->
+            <li class="nav-item" style="margin-left: auto;"><a href="../admin/dashboard.html"
+                    style="color: #ffdd59; font-weight: 700;">⚙️</a></li>
+        </ul>
+    </nav>
+
+    <!-- PHẦN 3: BANNER CHÍNH -->
+    <section class="hero-banner">
+        <h2>Thế Giới Đồ Chơi G4</h2>
+        <p>Nơi khơi nguồn sáng tạo và chắp cánh ước mơ cho bé yêu</p>
+    </section>
+
+    <!-- PHẦN 4: CÁC MỤC HÀNG LỚN -->
+    <main class="main-content">
+        <h2 class="section-title">Khám Phá Cửa Hàng</h2>
+
+        <div class="categories-container">
+
+            <!-- Mục 1: Playground 2026 -->
+            <section class="category-block">
+                <div class="category-header">
+                    <div class="cat-icon bg-1">🎢</div>
+                    <div class="cat-text">
+                        <h3>Playground 2026</h3>
+                        <p>Xu hướng đồ chơi tương tác và vận động mới nhất năm nay.</p>
+                    </div>
+                </div>
+
+                <div class="products-grid">
+                    <!-- Ví dụ đường dẫn chi tiết sản phẩm cũng sẽ nằm cùng cấp thư mục user/ -->
+                    <div class="product-card" onclick="window.location.href='product-detail.html?id=1'"
+                        style="cursor: pointer;">
+                        <div class="product-img">🏎️</div>
+                        <h4 class="product-name">Xe Đua Địa Hình Cân Bằng</h4>
+                        <p class="product-price">450.000 đ</p>
+                    </div>
+                    <div class="product-card" onclick="window.location.href='product-detail.html?id=2'"
+                        style="cursor: pointer;">
+                        <div class="product-img">🤖</div>
+                        <h4 class="product-name">Robot Nhảy Múa Thông Minh</h4>
+                        <p class="product-price">620.000 đ</p>
+                    </div>
+                    <div class="product-card hidden">
+                        <div class="product-img">🛹</div>
+                        <h4 class="product-name">Ván Trượt Thể Thao Siêu Hạng</h4>
+                        <p class="product-price">350.000 đ</p>
+                    </div>
+                    <div class="product-card hidden">
+                        <div class="product-img">🎯</div>
+                        <h4 class="product-name">Bộ Phi Tiêu Nam Châm An Toàn</h4>
+                        <p class="product-price">180.000 đ</p>
+                    </div>
+                </div>
+
+                <div class="more-actions">
+                    <button class="btn-view-more" onclick="toggleProducts(this)">Xem thêm Playground 2026 ▾</button>
+                </div>
+            </section>
+
+            <!-- Mục 2: Quà to giá nhỏ -->
+            <section class="category-block">
+                <div class="category-header">
+                    <div class="cat-icon bg-2">🎁</div>
+                    <div class="cat-text">
+                        <h3>Quà To Giá Nhỏ</h3>
+                        <p>Các deal siêu hời, giảm giá ngập tràn cho bé yêu.</p>
+                    </div>
+                </div>
+
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-img">🧸</div>
+                        <h4 class="product-name">Gấu Bông Khổng Lồ Đáng Yêu</h4>
+                        <p class="product-price">199.000 đ <span class="old-price">350.000 đ</span></p>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">🧩</div>
+                        <h4 class="product-name">Bộ Thẻ Học Tư Duy Cho Bé</h4>
+                        <p class="product-price">95.000 đ <span class="old-price">150.000 đ</span></p>
+                    </div>
+                    <div class="product-card hidden">
+                        <div class="product-img">🎨</div>
+                        <h4 class="product-name">Hộp Màu Vẽ Đa Năng 48 Món</h4>
+                        <p class="product-price">75.000 đ <span class="old-price">120.000 đ</span></p>
+                    </div>
+                    <div class="product-card hidden">
+                        <div class="product-img">🎈</div>
+                        <h4 class="product-name">Combo Bong Bóng Tạo Hình Nghệ Thuật</h4>
+                        <p class="product-price">45.000 đ <span class="old-price">90.000 đ</span></p>
+                    </div>
+                </div>
+
+                <div class="more-actions">
+                    <button class="btn-view-more" onclick="toggleProducts(this)">Xem thêm Quà To Giá Nhỏ ▾</button>
+                </div>
+            </section>
+
+            <!-- Mục 3: Thùng gạch sáng tạo -->
+            <section class="category-block">
+                <div class="category-header">
+                    <div class="cat-icon bg-3">🧱</div>
+                    <div class="cat-text">
+                        <h3>Thùng Gạch Sáng Tạo</h3>
+                        <p>Lắp ráp thế giới riêng với hàng ngàn mảnh ghép LEGO.</p>
+                    </div>
+                </div>
+
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-img">🏰</div>
+                        <h4 class="product-name">Lego Lâu Đài Cổ Tích 500 Chi Tiết</h4>
+                        <p class="product-price">890.000 đ</p>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">🚀</div>
+                        <h4 class="product-name">Lego Phi Thuyền Không Gian</h4>
+                        <p class="math-container">750.000 đ</p>
+                    </div>
+                    <div class="product-card hidden">
+                        <div class="product-img">🚒</div>
+                        <h4 class="product-name">Lego Xe Cứu Hỏa Thành Phố</h4>
+                        <p class="product-price">420.000 đ</p>
+                    </div>
+                    <div class="product-card hidden">
+                        <div class="product-img">🚢</div>
+                        <h4 class="product-name">Lego Tàu Chiến Hải Quân Khổng Lồ</h4>
+                        <p class="product-price">1.250.000 đ</p>
+                    </div>
+                </div>
+
+                <div class="more-actions">
+                    <button class="btn-view-more" onclick="toggleProducts(this)">Xem thêm Gạch Sáng Tạo ▾</button>
+                </div>
+            </section>
+
+            <!-- Mục 4: Mục hot -->
+            <section class="category-block">
+                <div class="category-header">
+                    <div class="cat-icon bg-4">🔥</div>
+                    <div class="cat-text">
+                        <h3>Mục Hot (Bán Chạy)</h3>
+                        <p>Những sản phẩm được yêu thích nhất do khách hàng bình chọn.</p>
+                    </div>
+                </div>
+
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-img">🪘</div>
+                        <h4 class="product-name">Bộ Trống Trẻ Em Sôi Động</h4>
+                        <p class="product-price">320.000 đ</p>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-img">🪵</div>
+                        <h4 class="product-name">Bộ Rút Gỗ Màu Thử Thách</h4>
+                        <p class="product-price">120.000 đ</p>
+                    </div>
+                    <div class="product-card hidden">
+                        <div class="product-img">🔫</div>
+                        <h4 class="product-name">Súng Nước Áp Lực Khổng Lồ</h4>
+                        <p class="product-price">250.000 đ</p>
+                    </div>
+                    <div class="product-card hidden">
+                        <div class="product-img">🎮</div>
+                        <h4 class="product-name">Máy Chơi Game Cầm Tay 400 Trò</h4>
+                        <p class="product-price">195.000 đ</p>
+                    </div>
+                </div>
+
+                <div class="more-actions">
+                    <button class="btn-view-more" onclick="toggleProducts(this)">Xem thêm Mục Hot ▾</button>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- PHẦN 5: FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-section">
+                <h4>Về G4 ToyStore</h4>
+                <p>📍 Địa chỉ: Tòa nhà FPT, Quận 9, TP.HCM</p>
+                <p>📞 Hotline: 0999.999.999</p>
+                <p>📧 Email: contact@g4toystore.com</p>
+                <p>🕒 Giờ mở cửa: 8:00 - 22:00 (Cả tuần)</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Dịch Vụ Khách Hàng</h4>
+                <ul class="blog-list">
+                    <li><a href="policy.html?type=return">Chính sách đổi trả</a></li>
+                    <li><a href="policy.html?type=warranty">Chính sách bảo hành</a></li>
+                    <li><a href="guide.html">Hướng dẫn mua hàng</a></li>
+                    <li><a href="payment.html">Phương thức thanh toán</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Góc Trẻ Thơ (Blog)</h4>
+                <ul class="blog-list">
+                    <li>
+                        <a href="blog-detail.html?id=101">Cách chọn đồ chơi an toàn cho bé dưới 3 tuổi</a>
+                        <span class="blog-date">20/05/2026</span>
+                    </li>
+                    <li>
+                        <a href="blog-detail.html?id=102">LEGO City 2026: Có gì mới trong bộ sưu tập Hè?</a>
+                        <span class="blog-date">15/05/2026</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 G4 ToyStore. All rights reserved. Database Powered by Nhóm G4.</p>
+        </div>
+    </footer>
+
+    <!-- KỊCH BẢN JAVASCRIPT XỬ LÝ ẨN / HIỆN SẢN PHẨM -->
+    <script>
+        function toggleProducts(button) {
+            const categoryBlock = button.closest('.category-block');
+            const hiddenProducts = categoryBlock.querySelectorAll('.product-card.hidden, .product-card.visible-now');
+            const categoryName = categoryBlock.querySelector('.cat-text h3').innerText;
+
+            if (button.classList.contains('is-expanded')) {
+                hiddenProducts.forEach(prod => {
+                    prod.style.display = 'none';
+                    prod.classList.remove('visible-now');
+                });
+                button.innerHTML = `Xem thêm ${categoryName} ▾`;
+                button.classList.remove('is-expanded');
+                categoryBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                hiddenProducts.forEach(prod => {
+                    prod.style.display = 'block';
+                    prod.classList.add('visible-now');
+                    setTimeout(() => { prod.style.opacity = '1'; }, 10);
+                });
+                button.innerHTML = `Thu gọn bớt ▴`;
+                button.classList.add('is-expanded');
+            }
+        }
+    </script>
+</body>
+
+</html>

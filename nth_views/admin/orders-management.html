@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Đơn Hàng - G4 Admin</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --primary-admin: #2c3e50;
+            --accent-admin: #34495e;
+            --active-color: #3498db;
+            --text-light: #ecf0f1;
+            --bg-body: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --success: #2ecc71;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Quicksand', sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-dark); display: flex; min-height: 100vh; }
+
+        /* SIDEBAR STRUCTURE */
+        .sidebar { width: var(--sidebar-width); background-color: var(--primary-admin); color: var(--text-light); position: fixed; top: 0; bottom: 0; left: 0; display: flex; flex-direction: column; z-index: 100; }
+        .sidebar-brand { padding: 24px; text-align: center; font-size: 1.4rem; font-weight: 700; border-bottom: 1px solid rgba(255, 255, 255, 0.1); background-color: #1a252f; }
+        .sidebar-menu { list-style: none; padding: 20px 0; flex-grow: 1; }
+        .sidebar-menu a { display: flex; align-items: center; gap: 12px; padding: 15px 25px; color: #bdc3c7; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .sidebar-menu li.active a, .sidebar-menu a:hover { color: var(--white); background-color: var(--accent-admin); border-left: 4px solid var(--active-color); padding-left: 21px; }
+        .sidebar-footer { padding: 20px; border-top: 1px solid rgba(255, 255, 255, 0.1); }
+        .btn-logout { display: block; text-align: center; padding: 10px; background-color: var(--danger); color: var(--white); border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+
+        /* MAIN CONTENT */
+        .main-wrapper { margin-left: var(--sidebar-width); width: calc(100% - var(--sidebar-width)); display: flex; flex-direction: column; }
+        .topbar { height: 70px; background-color: var(--white); box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; padding: 0 30px; }
+        .content-body { padding: 30px; }
+
+        /* FILTER TABS */
+        .filter-bar { display: flex; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
+        .filter-btn { padding: 8px 16px; background-color: var(--white); border: 2px solid #e0e0e0; border-radius: 20px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .filter-btn.active, .filter-btn:hover { background-color: var(--active-color); color: white; border-color: var(--active-color); }
+
+        /* TABLE */
+        .table-section { background-color: var(--white); padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+        .data-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .data-table th, .data-table td { padding: 14px; border-bottom: 1px solid #eee; }
+        .data-table th { background-color: #f8f9fa; color: #555; font-weight: 700; }
+        
+        .status-badge { padding: 5px 12px; border-radius: 12px; font-size: 0.85rem; font-weight: 700; display: inline-block; }
+        .status-badge.success { background-color: #e8f8f0; color: var(--success); }
+        .status-badge.warning { background-color: #fef9e7; color: var(--warning); }
+        .status-badge.danger { background-color: #fdedec; color: var(--danger); }
+
+        select.select-status { padding: 6px 10px; border-radius: 6px; border: 1px solid #ddd; outline: none; font-family: 'Quicksand', sans-serif; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="sidebar-brand">⚙️ G4 TOYSTORE</div>
+        <ul class="sidebar-menu">
+            <li><a href="dashboard.html">📊 Tổng quan Dashboard</a></li>
+            <li><a href="products-management.html">🧱 Quản lý sản phẩm</a></li>
+            <li class="active"><a href="orders-management.html">📦 Quản lý đơn hàng</a></li>
+            <li><a href="users-management.html">👥 Quản lý người dùng</a></li>
+            <li><a href="../user/home.html" target="_blank">🌐 Xem trang chủ User</a></li>
+        </ul>
+        <div class="sidebar-footer"><a href="../user/login.html" class="btn-logout">Đăng xuất ↩</a></div>
+    </aside>
+
+    <div class="main-wrapper">
+        <header class="topbar">
+            <div class="page-title"><h2>Hệ Thống Kiểm Soát Đơn Hàng</h2></div>
+        </header>
+
+        <main class="content-body">
+            <div class="filter-bar">
+                <button class="filter-btn active">Tất cả đơn</button>
+                <button class="filter-btn">Chờ xử lý</button>
+                <button class="filter-btn">Đang giao</button>
+                <button class="filter-btn">Đã giao thành công</button>
+            </div>
+
+            <div class="table-section">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Mã Đơn</th>
+                            <th>Khách Hàng</th>
+                            <th>Số Điện Thoại</th>
+                            <th>Tổng Tiền</th>
+                            <th>Trạng Thái</th>
+                            <th>Cập Nhật Nhanh</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>#G4-1024</b></td>
+                            <td>Nguyễn Văn A</td>
+                            <td>0912345678</td>
+                            <td>620.000 đ</td>
+                            <td><span class="status-badge warning">Chờ xử lý</span></td>
+                            <td>
+                                <select class="select-status" onchange="alert('Đã chuyển trạng thái đơn hàng!')">
+                                    <option>Chờ xử lý</option>
+                                    <option>Đang giao</option>
+                                    <option>Đã giao</option>
+                                    <option>Hủy đơn</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>#G4-1023</b></td>
+                            <td>Trần Thị B</td>
+                            <td>0988888888</td>
+                            <td>199.000 đ</td>
+                            <td><span class="status-badge success">Đã giao</span></td>
+                            <td>
+                                <select class="select-status">
+                                    <option>Đã giao</option>
+                                    <option>Chờ xử lý</option>
+                                    <option>Đang giao</option>
+                                    <option>Hủy đơn</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

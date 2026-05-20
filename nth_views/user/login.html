@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập - G4 ToyStore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Thêm thư viện Font Awesome để dùng icon Google, Facebook -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh; /* Đổi thành min-height để không bị lỗi hiển thị trên màn hình nhỏ */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .logo-area {
+            margin-bottom: 25px;
+        }
+
+        .logo-area h1 {
+            color: #ff6b6b;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .logo-area p {
+            color: #777;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            outline: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #4ecdc4;
+            box-shadow: 0 0 8px rgba(78, 205, 196, 0.2);
+        }
+
+        .options-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+        }
+
+        .options-area a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .options-area a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 13px;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.1s ease;
+        }
+
+        .btn-login:hover {
+            background-color: #ee5253;
+        }
+
+        .btn-login:active {
+            transform: scale(0.98);
+        }
+
+        /* --- CÁC PHẦN ĐƯỢC THÊM MỚI TẠI ĐÂY --- */
+        
+        /* Đường gạch ngang phân cách "Hoặc đăng nhập bằng" */
+        .social-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0;
+            color: #aaa;
+            font-size: 0.85rem;
+        }
+
+        .social-divider::before,
+        .social-divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px dashed #e0e0e0;
+        }
+
+        .social-divider:not(:empty)::before {
+            margin-right: .5em;
+        }
+
+        .social-divider:not(:empty)::after {
+            margin-left: .5em;
+        }
+
+        /* Vùng chứa các nút mạng xã hội */
+        .social-login-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-social {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            background-color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Style riêng cho nút Google */
+        .btn-google {
+            color: #333333;
+        }
+        .btn-google i {
+            color: #ea4335; /* Màu đỏ thương hiệu Google */
+            font-size: 1.1rem;
+        }
+        .btn-google:hover {
+            background-color: #f8f9fa;
+            border-color: #ccc;
+        }
+
+        /* Style riêng cho nút Facebook */
+        .btn-facebook {
+            color: #ffffff;
+            background-color: #1877f2; /* Màu xanh thương hiệu Facebook */
+            border-color: #1877f2;
+        }
+        .btn-facebook i {
+            font-size: 1.1rem;
+        }
+        .btn-facebook:hover {
+            background-color: #166fe5;
+            border-color: #166fe5;
+        }
+        
+        .btn-social:active {
+            transform: scale(0.98);
+        }
+
+        /* -------------------------------------- */
+
+        .register-link {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .register-link a {
+            color: #4ecdc4;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <div class="logo-area">
+            <h1>🧸 G4 ToyStore</h1>
+            <p>Đăng nhập hệ thống cửa hàng</p>
+        </div>
+
+        <form action="#" method="POST">
+            <!-- Khớp với HKKM_Email (NOT NULL UNIQUE) -->
+            <div class="form-group">
+                <label for="email">Email đăng nhập</label>
+                <input type="email" id="email" name="HKKM_Email" placeholder="Nhập tài khoản email..." required>
+            </div>
+
+            <!-- Khớp với HKKM_Password_Hash (NOT NULL) -->
+            <div class="form-group">
+                <label for="password">Mật khẩu</label>
+                <input type="password" id="password" name="HKKM_Password_Hash" placeholder="Nhập mật khẩu của bạn..." required>
+            </div>
+
+            <div class="options-area">
+                <label style="display: flex; align-items: center; gap: 5px; cursor: pointer;">
+                    <input type="checkbox" name="remember"> Ghi nhớ đăng nhập
+                </label>
+                <a href="#">Quên mật khẩu?</a>
+            </div>
+
+            <button type="submit" class="btn-login">ĐĂNG NHẬP</button>
+        </form>
+
+        <!-- KHU VỰC PHƯƠNG THỨC ĐĂNG NHẬP KHÁC -->
+        <div class="social-divider">Hoặc đăng nhập bằng</div>
+
+        <div class="social-login-group">
+            <!-- Nút Đăng nhập Google -->
+            <a href="URL_XU_LY_GOOGLE_OAUTH" class="btn-social btn-google">
+                <i class="fab fa-google"></i> Tiếp tục với Google
+            </a>
+            
+            <!-- Nút Đăng nhập Facebook -->
+            <a href="URL_XU_LY_FACEBOOK_OAUTH" class="btn-social btn-facebook">
+                <i class="fab fa-facebook-f"></i> Tiếp tục với Facebook
+            </a>
+        </div>
+        <!-- --------------------------------- -->
+
+        <div class="register-link">
+            Thành viên mới? <a href="register.html">Đăng ký tài khoản</a>
+        </div>
+    </div>
+
+</body>
+</html>

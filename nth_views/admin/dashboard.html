@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - G4 ToyStore</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --primary-admin: #2c3e50;
+            --accent-admin: #34495e;
+            --active-color: #3498db;
+            --text-light: #ecf0f1;
+            --bg-body: #f8f9fa;
+            --white: #ffffff;
+            --text-dark: #333333;
+            --success: #2ecc71;
+            --warning: #f1c40f;
+            --danger: #e74c3c;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-dark);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* --- SIDEBAR (THANH MENU TRÁI) --- */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: var(--primary-admin);
+            color: var(--text-light);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            padding: 24px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: #1a252f;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 20px 0;
+            flex-grow: 1;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px 25px;
+            color: #bdc3c7;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .sidebar-menu li.active a,
+        .sidebar-menu a:hover {
+            color: var(--white);
+            background-color: var(--accent-admin);
+            border-left: 4px solid var(--active-color);
+            padding-left: 21px;
+        }
+
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-logout {
+            display: block;
+            text-align: center;
+            padding: 10px;
+            background-color: var(--danger);
+            color: var(--white);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .btn-logout:hover {
+            background-color: #c0392b;
+        }
+
+        /* --- MAIN CONTENT AREA (KHU VỰC NỘI DUNG CHÍNH) --- */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            width: calc(100% - var(--sidebar-width));
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Topbar phía trên */
+        .topbar {
+            height: 70px;
+            background-color: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 30px;
+        }
+
+        .page-title h2 {
+            font-size: 1.5rem;
+            color: var(--primary-admin);
+        }
+
+        .admin-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--active-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        /* Khối hiển thị nội dung chính */
+        .content-body {
+            padding: 30px;
+        }
+
+        /* Lưới thống kê tổng quan (Cards) */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #ddd;
+        }
+
+        .stat-card.card-revenue { border-color: var(--success); }
+        .stat-card.card-orders { border-color: var(--active-color); }
+        .stat-card.card-products { border-color: var(--warning); }
+        .stat-card.card-users { border-color: #9b59b6; }
+
+        .stat-info p {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .stat-info h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+
+        .stat-icon {
+            font-size: 2.5rem;
+            opacity: 0.8;
+        }
+
+        /* Khu vực bảng thông tin */
+        .table-section {
+            background-color: var(--white);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .table-header h3 {
+            color: var(--primary-admin);
+            font-size: 1.2rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .data-table th, 
+        .data-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .data-table th {
+            background-color: #f8f9fa;
+            color: #555555;
+            font-weight: 700;
+        }
+
+        .data-table tbody tr:hover {
+            background-color: #fdfdfd;
+        }
+
+        /* Trạng thái đơn hàng */
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        .status-badge.success { background-color: #e8f8f0; color: var(--success); }
+        .status-badge.warning { background-color: #fef9e7; color: var(--warning); }
+        .status-badge.danger { background-color: #fdedec; color: var(--danger); }
+
+        .btn-view {
+            padding: 6px 12px;
+            background-color: #f1f2f6;
+            border: none;
+            border-radius: 6px;
+            color: #57606f;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-view:hover {
+            background-color: var(--active-color);
+            color: var(--white);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 1. THANH MENU SIDEBAR TRÁI -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            ⚙️ G4 TOYSTORE
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active"><a href="dashboard.html">📊 Tổng quan Dashboard</a></li>
+            <!-- Các liên kết này sẽ được làm ở bước tiếp theo -->
+            <li><a href="products-management.html">🧱 Quản lý sản phẩm</a></li>
+            <li><a href="orders-management.html">📦 Quản lý đơn hàng</a></li>
+            <li><a href="users-management.html">👥 Quản lý người dùng</a></li>
+            <li><a href="../user/home.html" target="_blank">🌐 Xem trang chủ User</a></li>
+        </ul>
+        <div class="sidebar-footer">
+            <a href="../user/login.html" class="btn-logout">Đăng xuất ↩ó</a>
+        </div>
+    </aside>
+
+    <!-- 2. KHU VỰC HIỂN THỊ NỘI DUNG CHÍNH CHẠY THEO SIDEBAR -->
+    <div class="main-wrapper">
+        
+        <!-- Thanh công cụ phía trên -->
+        <header class="topbar">
+            <div class="page-title">
+                <h2>Hệ thống quản trị tổng quan</h2>
+            </div>
+            <div class="admin-profile">
+                <div class="avatar">A</div>
+                <span>Chào, Admin G4</span>
+            </div>
+        </header>
+
+        <!-- Phần thân hiển thị báo cáo thống kê -->
+        <main class="content-body">
+            
+            <!-- Hàng Thống kê nhanh bằng con số -->
+            <div class="stats-grid">
+                <div class="stat-card card-revenue">
+                    <div class="stat-info">
+                        <p>Doanh Thu Tháng</p>
+                        <h3>42.500.000đ</h3>
+                    </div>
+                    <div class="stat-icon">💰</div>
+                </div>
+
+                <div class="stat-card card-orders">
+                    <div class="stat-info">
+                        <p>Đơn Hàng Mới</p>
+                        <h3>128 Đơn</h3>
+                    </div>
+                    <div class="stat-icon">📦</div>
+                </div>
+
+                <div class="stat-card card-products">
+                    <div class="stat-info">
+                        <p>Tổng Sản Phẩm</p>
+                        <h3>450 Loại</h3>
+                    </div>
+                    <div class="stat-icon">🧸</div>
+                </div>
+
+                <div class="stat-card card-users">
+                    <div class="stat-info">
+                        <p>Thành Viên</p>
+                        <h3>1.024 User</h3>
+                    </div>
+                    <div class="stat-icon">👥</div>
+                </div>
+            </div>
+
+            <!-- Bảng Đơn Hàng Vừa Phát Sinh (Dữ liệu mẫu kết nối Database sau này) -->
+            <div class="table-section">
+                <div class="table-header">
+                    <h3>Danh sách đơn hàng vừa đặt gần đây</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Mã Đơn</th>
+                            <th>Khách Hàng</th>
+                            <th>Ngày Đặt</th>
+                            <th>Tổng Tiền</th>
+                            <th>Trạng Thái</th>
+                            <th>Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>#G4-1024</b></td>
+                            <td>Nguyễn Văn A</td>
+                            <td>20/05/2026</td>
+                            <td>620.000 đ</td>
+                            <td><span class="status-badge warning">Chờ xử lý</span></td>
+                            <td><button class="btn-view" onclick="alert('Xem chi tiết đơn #G4-1024')">Xem</button></td>
+                        </tr>
+                        <tr>
+                            <td><b>#G4-1023</b></td>
+                            <td>Trần Thị B</td>
+                            <td>19/05/2026</td>
+                            <td>199.000 đ</td>
+                            <td><span class="status-badge success">Đã giao</span></td>
+                            <td><button class="btn-view" onclick="alert('Xem chi tiết đơn #G4-1023')">Xem</button></td>
+                        </tr>
+                        <tr>
+                            <td><b>#G4-1022</b></td>
+                            <td>Phạm Minh C</td>
+                            <td>19/05/2026</td>
+                            <td>1.250.000 đ</td>
+                            <td><span class="status-badge danger">Đã hủy</span></td>
+                            <td><button class="btn-view" onclick="alert('Xem chi tiết đơn #G4-1022')">Xem</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,8 +1,8 @@
-﻿
--- CREATE DATABASE G4_ToyStore;
--- GO
--- USE G4_ToyStore;
--- GO
+
+CREATE DATABASE G4_ToyStore;
+GO
+USE G4_ToyStore;
+GO
 
 
 -- 1. NHÓM NGƯỜI DÙNG & THƯƠNG HIỆU
@@ -14,7 +14,7 @@ CREATE TABLE G4_Users (
     HKKM_Full_Name NVARCHAR(100) NOT NULL,
     HKKM_Phone NVARCHAR(20),
     HKKM_Address NVARCHAR(MAX),
-    HKKM_Role NVARCHAR(50) DEFAULT 'Customer', -- Cột phân quyền Admin / Customer
+    HKKM_Role NVARCHAR(50) DEFAULT 'Customer',
     HKKM_Created_At DATETIME DEFAULT GETDATE()
 );
 

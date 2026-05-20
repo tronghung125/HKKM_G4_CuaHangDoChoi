@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đăng Ký Tài Khoản - G4 ToyStore</title>
-    <!-- Google Fonts đồng bộ với trang đăng nhập -->
+    <title>Đăng Ký - G4 ToyStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
@@ -21,7 +20,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px; /* Thêm padding để không bị lỗi hiển thị trên màn hình nhỏ */
+            padding: 20px;
         }
 
         .register-container {
@@ -30,7 +29,7 @@
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 480px; /* Rộng hơn trang login một chút vì nhiều trường thông tin hơn */
+            max-width: 480px;
             text-align: center;
         }
 
@@ -48,21 +47,6 @@
             color: #777;
             font-size: 0.9rem;
             margin-top: 5px;
-        }
-
-        /* Chia form thành 2 cột trên màn hình máy tính nếu cần, ở đây xếp chồng để gọn gàng */
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        /* Khi màn hình nhỏ (điện thoại), tự động chuyển về 1 cột */
-        @media (max-width: 480px) {
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
         }
 
         .form-group {
@@ -90,12 +74,25 @@
 
         .form-group textarea {
             resize: none;
-            height: 80px;
+            height: 70px;
         }
 
         .form-group input:focus, .form-group textarea:focus {
             border-color: #4ecdc4;
             box-shadow: 0 0 8px rgba(78, 205, 196, 0.2);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
         }
 
         .terms-area {
@@ -121,7 +118,7 @@
         .btn-register {
             width: 100%;
             padding: 13px;
-            background-color: #4ecdc4; /* Sử dụng màu xanh Mint làm màu chủ đạo cho nút Đăng Ký */
+            background-color: #4ecdc4;
             color: white;
             border: none;
             border-radius: 10px;
@@ -162,55 +159,50 @@
     <div class="register-container">
         <div class="logo-area">
             <h1>🧸 G4 ToyStore</h1>
-            <p>Đăng ký thành viên để nhận nhiều ưu đãi</p>
+            <p>Tạo tài khoản khách hàng mới</p>
         </div>
 
-        <!-- Form Đăng Ký -->
         <form action="#" method="POST">
-            
-            <!-- Họ tên -->
+            <!-- Khớp với HKKM_Full_Name (NOT NULL) -->
             <div class="form-group">
                 <label for="fullname">Họ và tên</label>
-                <input type="text" id="fullname" name="HKKM_Full_Name" placeholder="Ví dụ: Nguyễn Văn An" required>
+                <input type="text" id="fullname" name="HKKM_Full_Name" placeholder="Nhập đầy đủ họ tên..." required>
             </div>
 
-            <!-- Email -->
+            <!-- Khớp với HKKM_Email (NOT NULL UNIQUE) -->
             <div class="form-group">
-                <label for="email">Email tài khoản</label>
-                <input type="email" id="email" name="HKKM_Email" placeholder="example@toystore.com" required>
+                <label for="email">Địa chỉ Email</label>
+                <input type="email" id="email" name="HKKM_Email" placeholder="name@example.com" required>
             </div>
 
-            <!-- Hàng gồm: Số điện thoại và Mật khẩu -->
+            <!-- Khớp với HKKM_Phone & HKKM_Password_Hash -->
             <div class="form-row">
                 <div class="form-group">
                     <label for="phone">Số điện thoại</label>
-                    <input type="tel" id="phone" name="HKKM_Phone" placeholder="09xxxxxxxx" required>
+                    <input type="tel" id="phone" name="HKKM_Phone" placeholder="09xxxxxxxx">
                 </div>
                 <div class="form-group">
                     <label for="password">Mật khẩu</label>
-                    <input type="password" id="password" name="HKKM_Password_Hash" placeholder="Tối thiểu 6 ký tự" required>
+                    <input type="password" id="password" name="HKKM_Password_Hash" placeholder="Mật khẩu bảo mật" required>
                 </div>
             </div>
 
-            <!-- Địa chỉ nhận hàng -->
+            <!-- Khớp với HKKM_Address (NVARCHAR(MAX)) -->
             <div class="form-group">
                 <label for="address">Địa chỉ giao hàng</label>
-                <textarea id="address" name="HKKM_Address" placeholder="Số nhà, tên đường, phường/xã, quận/huyện..."></textarea>
+                <textarea id="address" name="HKKM_Address" placeholder="Ghi rõ số nhà, tên đường, quận/huyện, tỉnh thành..."></textarea>
             </div>
 
-            <!-- Điều khoản dịch vụ -->
             <label class="terms-area">
                 <input type="checkbox" name="terms" required> 
-                <span>Tôi đồng ý với <a href="#">Điều khoản sử dụng</a> và <a href="#">Chính sách bảo mật</a>.</span>
+                <span>Tôi đồng ý với <a href="#">Chính sách cửa hàng</a> & bảo mật thông tin.</span>
             </label>
 
-            <!-- Nút đăng ký -->
-            <button type="submit" class="btn-register">Đăng Ký Ngay</button>
+            <button type="submit" class="btn-register">Đăng Ký Tài Khoản</button>
         </form>
 
-        <!-- Link quay lại trang đăng nhập -->
         <div class="login-link">
-            Đã có tài khoản? <a href="login.html">Đăng nhập tại đây</a>
+            Đã có tài khoản hệ thống? <a href="login.html">Đăng nhập ngay</a>
         </div>
     </div>
 
