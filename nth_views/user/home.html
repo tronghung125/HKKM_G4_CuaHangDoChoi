@@ -158,7 +158,7 @@
             top: 100%;
             left: 0;
             background-color: var(--white);
-            min-width: 200px;
+            min-width: 240px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             border-radius: 0 0 10px 10px;
             opacity: 0;
@@ -325,13 +325,7 @@
             border-radius: 15px;
             padding: 20px;
             text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.4s ease;
-        }
-
-        /* Class bổ sung để giấu sản phẩm */
-        .product-card.hidden {
-            display: none;
-            opacity: 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .product-card:hover {
@@ -394,7 +388,7 @@
             color: white;
         }
 
-        /* --- FOOTER --- */
+        /* --- SITE FOOTER --- */
         .site-footer {
             background-color: #2c3e50;
             color: var(--white);
@@ -468,7 +462,6 @@
     <!-- PHẦN 1: HEADER & TÌM KIẾM -->
     <header class="header-top">
         <div class="logo">
-            <!-- Đang ở user/, gọi trang chủ chỉ cần dùng home.html -->
             <a href="home.html">
                 <h1>🧸 G4 ToyStore</h1>
             </a>
@@ -480,9 +473,7 @@
         </form>
 
         <div class="header-actions">
-            <!-- Đang ở user/, gọi trang đăng nhập login.html ở cùng thư mục -->
             <a href="login.html" class="btn-action btn-login">👤 Đăng Nhập</a>
-            <!-- Liên kết sang trang giỏ hàng nằm trong thư mục user/ -->
             <a href="cart.html" class="btn-action btn-cart">🛒 Giỏ Hàng (0)</a>
         </div>
     </header>
@@ -494,24 +485,25 @@
             <li class="nav-item">
                 <a href="#">Sản Phẩm ▾</a>
                 <ul class="dropdown">
-                    <!-- Liên kết tới các trang lọc sản phẩm tương ứng trong mục user/ -->
-                    <li><a href="products.html?cat=lap-rap">Đồ chơi lắp ráp</a></li>
-                    <li><a href="products.html?cat=bup-be">Búp bê & Phụ kiện</a></li>
-                    <li><a href="products.html?cat=thong-minh">Đồ chơi thông minh</a></li>
+                    <li><a href="products.html?cat=playground-2026">Playground 2026</a></li>
+                    <li><a href="products.html?cat=qua-to-gia-nho">Quà To Giá Nhỏ</a></li>
+                    <li><a href="products.html?cat=thung-gach-sang-tao">Thùng Gạch Sáng Tạo</a></li>
+                    <li><a href="products.html?cat=muc-hot">Mục Hot (Bán Chạy)</a></li>
                 </ul>
             </li>
             <li class="nav-item">
                 <a href="#">Thương Hiệu ▾</a>
                 <ul class="dropdown">
-                    <li><a href="brands.html?b=lego">LEGO</a></li>
-                    <li><a href="brands.html?b=hotwheels">Hot Wheels</a></li>
-                    <li><a href="brands.html?b=mylittlepony">My Little Pony</a></li>
-                    <li><a href="brands.html?b=bandai">Bandai</a></li>
+                    <!-- Đổi từ brands.html?b= thành products.html?brand= để dùng chung view -->
+                    <li><a href="products.html?brand=lego">LEGO</a></li>
+                    <li><a href="products.html?brand=hotwheels">Hot Wheels</a></li>
+                    <li><a href="products.html?brand=mylittlepony">My Little Pony</a></li>
+                    <li><a href="products.html?brand=bandai">Bandai</a></li>
                 </ul>
             </li>
-            <!-- Thêm liên kết ẩn test thử để Ban Quản Trị đi sang thư mục Admin -->
-            <li class="nav-item" style="margin-left: auto;"><a href="../admin/dashboard.html"
-                    style="color: #ffdd59; font-weight: 700;">⚙️</a></li>
+            <li class="nav-item" style="margin-left: auto;">
+                <a href="../admin/dashboard.html" style="color: #ffdd59; font-weight: 700;">⚙️ Trang Quản Trị</a>
+            </li>
         </ul>
     </nav>
 
@@ -538,7 +530,6 @@
                 </div>
 
                 <div class="products-grid">
-                    <!-- Ví dụ đường dẫn chi tiết sản phẩm cũng sẽ nằm cùng cấp thư mục user/ -->
                     <div class="product-card" onclick="window.location.href='product-detail.html?id=1'"
                         style="cursor: pointer;">
                         <div class="product-img">🏎️</div>
@@ -551,20 +542,12 @@
                         <h4 class="product-name">Robot Nhảy Múa Thông Minh</h4>
                         <p class="product-price">620.000 đ</p>
                     </div>
-                    <div class="product-card hidden">
-                        <div class="product-img">🛹</div>
-                        <h4 class="product-name">Ván Trượt Thể Thao Siêu Hạng</h4>
-                        <p class="product-price">350.000 đ</p>
-                    </div>
-                    <div class="product-card hidden">
-                        <div class="product-img">🎯</div>
-                        <h4 class="product-name">Bộ Phi Tiêu Nam Châm An Toàn</h4>
-                        <p class="product-price">180.000 đ</p>
-                    </div>
                 </div>
 
                 <div class="more-actions">
-                    <button class="btn-view-more" onclick="toggleProducts(this)">Xem thêm Playground 2026 ▾</button>
+                    <!-- Thay đổi onclick để điều hướng thẳng qua view products.html kèm danh mục -->
+                    <button class="btn-view-more" onclick="window.location.href='products.html?cat=playground-2026'">Xem
+                        thêm Playground 2026 ▾</button>
                 </div>
             </section>
 
@@ -579,30 +562,23 @@
                 </div>
 
                 <div class="products-grid">
-                    <div class="product-card">
+                    <div class="product-card" onclick="window.location.href='product-detail.html?id=3'"
+                        style="cursor: pointer;">
                         <div class="product-img">🧸</div>
                         <h4 class="product-name">Gấu Bông Khổng Lồ Đáng Yêu</h4>
                         <p class="product-price">199.000 đ <span class="old-price">350.000 đ</span></p>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card" onclick="window.location.href='product-detail.html?id=4'"
+                        style="cursor: pointer;">
                         <div class="product-img">🧩</div>
                         <h4 class="product-name">Bộ Thẻ Học Tư Duy Cho Bé</h4>
                         <p class="product-price">95.000 đ <span class="old-price">150.000 đ</span></p>
                     </div>
-                    <div class="product-card hidden">
-                        <div class="product-img">🎨</div>
-                        <h4 class="product-name">Hộp Màu Vẽ Đa Năng 48 Món</h4>
-                        <p class="product-price">75.000 đ <span class="old-price">120.000 đ</span></p>
-                    </div>
-                    <div class="product-card hidden">
-                        <div class="product-img">🎈</div>
-                        <h4 class="product-name">Combo Bong Bóng Tạo Hình Nghệ Thuật</h4>
-                        <p class="product-price">45.000 đ <span class="old-price">90.000 đ</span></p>
-                    </div>
                 </div>
 
                 <div class="more-actions">
-                    <button class="btn-view-more" onclick="toggleProducts(this)">Xem thêm Quà To Giá Nhỏ ▾</button>
+                    <button class="btn-view-more" onclick="window.location.href='products.html?cat=qua-to-gia-nho'">Xem
+                        thêm Quà To Giá Nhỏ ▾</button>
                 </div>
             </section>
 
@@ -617,30 +593,24 @@
                 </div>
 
                 <div class="products-grid">
-                    <div class="product-card">
+                    <div class="product-card" onclick="window.location.href='product-detail.html?id=5'"
+                        style="cursor: pointer;">
                         <div class="product-img">🏰</div>
                         <h4 class="product-name">Lego Lâu Đài Cổ Tích 500 Chi Tiết</h4>
                         <p class="product-price">890.000 đ</p>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card" onclick="window.location.href='product-detail.html?id=6'"
+                        style="cursor: pointer;">
                         <div class="product-img">🚀</div>
                         <h4 class="product-name">Lego Phi Thuyền Không Gian</h4>
-                        <p class="math-container">750.000 đ</p>
-                    </div>
-                    <div class="product-card hidden">
-                        <div class="product-img">🚒</div>
-                        <h4 class="product-name">Lego Xe Cứu Hỏa Thành Phố</h4>
-                        <p class="product-price">420.000 đ</p>
-                    </div>
-                    <div class="product-card hidden">
-                        <div class="product-img">🚢</div>
-                        <h4 class="product-name">Lego Tàu Chiến Hải Quân Khổng Lồ</h4>
-                        <p class="product-price">1.250.000 đ</p>
+                        <p class="product-price">750.000 đ</p>
                     </div>
                 </div>
 
                 <div class="more-actions">
-                    <button class="btn-view-more" onclick="toggleProducts(this)">Xem thêm Gạch Sáng Tạo ▾</button>
+                    <button class="btn-view-more"
+                        onclick="window.location.href='products.html?cat=thung-gach-sang-tao'">Xem thêm Gạch Sáng Tạo
+                        ▾</button>
                 </div>
             </section>
 
@@ -655,30 +625,23 @@
                 </div>
 
                 <div class="products-grid">
-                    <div class="product-card">
+                    <div class="product-card" onclick="window.location.href='product-detail.html?id=7'"
+                        style="cursor: pointer;">
                         <div class="product-img">🪘</div>
                         <h4 class="product-name">Bộ Trống Trẻ Em Sôi Động</h4>
                         <p class="product-price">320.000 đ</p>
                     </div>
-                    <div class="product-card">
+                    <div class="product-card" onclick="window.location.href='product-detail.html?id=8'"
+                        style="cursor: pointer;">
                         <div class="product-img">🪵</div>
                         <h4 class="product-name">Bộ Rút Gỗ Màu Thử Thách</h4>
                         <p class="product-price">120.000 đ</p>
                     </div>
-                    <div class="product-card hidden">
-                        <div class="product-img">🔫</div>
-                        <h4 class="product-name">Súng Nước Áp Lực Khổng Lồ</h4>
-                        <p class="product-price">250.000 đ</p>
-                    </div>
-                    <div class="product-card hidden">
-                        <div class="product-img">🎮</div>
-                        <h4 class="product-name">Máy Chơi Game Cầm Tay 400 Trò</h4>
-                        <p class="product-price">195.000 đ</p>
-                    </div>
                 </div>
 
                 <div class="more-actions">
-                    <button class="btn-view-more" onclick="toggleProducts(this)">Xem thêm Mục Hot ▾</button>
+                    <button class="btn-view-more" onclick="window.location.href='products.html?cat=muc-hot'">Xem thêm
+                        Mục Hot ▾</button>
                 </div>
             </section>
 
@@ -726,32 +689,6 @@
         </div>
     </footer>
 
-    <!-- KỊCH BẢN JAVASCRIPT XỬ LÝ ẨN / HIỆN SẢN PHẨM -->
-    <script>
-        function toggleProducts(button) {
-            const categoryBlock = button.closest('.category-block');
-            const hiddenProducts = categoryBlock.querySelectorAll('.product-card.hidden, .product-card.visible-now');
-            const categoryName = categoryBlock.querySelector('.cat-text h3').innerText;
-
-            if (button.classList.contains('is-expanded')) {
-                hiddenProducts.forEach(prod => {
-                    prod.style.display = 'none';
-                    prod.classList.remove('visible-now');
-                });
-                button.innerHTML = `Xem thêm ${categoryName} ▾`;
-                button.classList.remove('is-expanded');
-                categoryBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            } else {
-                hiddenProducts.forEach(prod => {
-                    prod.style.display = 'block';
-                    prod.classList.add('visible-now');
-                    setTimeout(() => { prod.style.opacity = '1'; }, 10);
-                });
-                button.innerHTML = `Thu gọn bớt ▴`;
-                button.classList.add('is-expanded');
-            }
-        }
-    </script>
 </body>
 
 </html>
