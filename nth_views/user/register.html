@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đăng Ký - G4 ToyStore</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
-    
+
     <style>
         * {
             margin: 0;
@@ -62,7 +63,8 @@
             font-size: 0.9rem;
         }
 
-        .form-group input, .form-group textarea {
+        .form-group input,
+        .form-group textarea {
             width: 100%;
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
@@ -77,7 +79,8 @@
             height: 70px;
         }
 
-        .form-group input:focus, .form-group textarea:focus {
+        .form-group input:focus,
+        .form-group textarea:focus {
             border-color: #4ecdc4;
             box-shadow: 0 0 8px rgba(78, 205, 196, 0.2);
         }
@@ -152,8 +155,35 @@
         .login-link a:hover {
             text-decoration: underline;
         }
+
+        .back-to-home {
+            margin-bottom: 20px;
+            /* Khoảng cách với form bên dưới */
+            text-align: left;
+        }
+
+        .back-to-home a {
+            display: inline-flex;
+            align-items: center;
+            color: #777777;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+
+        .back-to-home a:hover {
+            color: #ff6b6b;
+            /* Màu đỏ chủ đạo giống logo của bạn */
+            background-color: #fff0f0;
+            transform: translateX(-3px);
+            /* Hiệu ứng nhích nhẹ sang trái khi hover */
+        }
     </style>
 </head>
+
 <body>
 
     <div class="register-container">
@@ -183,28 +213,35 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Mật khẩu</label>
-                    <input type="password" id="password" name="HKKM_Password_Hash" placeholder="Mật khẩu bảo mật" required>
+                    <input type="password" id="password" name="HKKM_Password_Hash" placeholder="Mật khẩu bảo mật"
+                        required>
                 </div>
             </div>
 
             <!-- Khớp với HKKM_Address (NVARCHAR(MAX)) -->
             <div class="form-group">
                 <label for="address">Địa chỉ giao hàng</label>
-                <textarea id="address" name="HKKM_Address" placeholder="Ghi rõ số nhà, tên đường, quận/huyện, tỉnh thành..."></textarea>
+                <textarea id="address" name="HKKM_Address"
+                    placeholder="Ghi rõ số nhà, tên đường, quận/huyện, tỉnh thành..."></textarea>
             </div>
 
             <label class="terms-area">
-                <input type="checkbox" name="terms" required> 
+                <input type="checkbox" name="terms" required>
                 <span>Tôi đồng ý với <a href="#">Chính sách cửa hàng</a> & bảo mật thông tin.</span>
             </label>
 
             <button type="submit" class="btn-register">Đăng Ký Tài Khoản</button>
         </form>
+         <div class="back-to-home">
+            <a href="home.html">← Quay lại Trang Chủ</a>
+        </div>
 
         <div class="login-link">
             Đã có tài khoản hệ thống? <a href="login.html">Đăng nhập ngay</a>
         </div>
+       
     </div>
 
 </body>
+
 </html>

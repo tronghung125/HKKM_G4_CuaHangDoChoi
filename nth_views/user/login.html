@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Thêm thư viện Font Awesome để dùng icon Google, Facebook -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
         * {
             margin: 0;
@@ -18,7 +19,8 @@
 
         body {
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh; /* Đổi thành min-height để không bị lỗi hiển thị trên màn hình nhỏ */
+            min-height: 100vh;
+            /* Đổi thành min-height để không bị lỗi hiển thị trên màn hình nhỏ */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -120,7 +122,7 @@
         }
 
         /* --- CÁC PHẦN ĐƯỢC THÊM MỚI TẠI ĐÂY --- */
-        
+
         /* Đường gạch ngang phân cách "Hoặc đăng nhập bằng" */
         .social-divider {
             display: flex;
@@ -174,10 +176,13 @@
         .btn-google {
             color: #333333;
         }
+
         .btn-google i {
-            color: #ea4335; /* Màu đỏ thương hiệu Google */
+            color: #ea4335;
+            /* Màu đỏ thương hiệu Google */
             font-size: 1.1rem;
         }
+
         .btn-google:hover {
             background-color: #f8f9fa;
             border-color: #ccc;
@@ -186,17 +191,20 @@
         /* Style riêng cho nút Facebook */
         .btn-facebook {
             color: #ffffff;
-            background-color: #1877f2; /* Màu xanh thương hiệu Facebook */
+            background-color: #1877f2;
+            /* Màu xanh thương hiệu Facebook */
             border-color: #1877f2;
         }
+
         .btn-facebook i {
             font-size: 1.1rem;
         }
+
         .btn-facebook:hover {
             background-color: #166fe5;
             border-color: #166fe5;
         }
-        
+
         .btn-social:active {
             transform: scale(0.98);
         }
@@ -218,10 +226,36 @@
         .register-link a:hover {
             text-decoration: underline;
         }
+
+        .back-to-home {
+            margin-bottom: 20px;
+            /* Khoảng cách với form bên dưới */
+            text-align: left;
+        }
+
+        .back-to-home a {
+            display: inline-flex;
+            align-items: center;
+            color: #777777;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+
+        .back-to-home a:hover {
+            color: #ff6b6b;
+            /* Màu đỏ chủ đạo giống logo của bạn */
+            background-color: #fff0f0;
+            transform: translateX(-3px);
+            /* Hiệu ứng nhích nhẹ sang trái khi hover */
+        }
     </style>
 </head>
-<body>
 
+<body>
     <div class="login-container">
         <div class="logo-area">
             <h1>🧸 G4 ToyStore</h1>
@@ -238,7 +272,8 @@
             <!-- Khớp với HKKM_Password_Hash (NOT NULL) -->
             <div class="form-group">
                 <label for="password">Mật khẩu</label>
-                <input type="password" id="password" name="HKKM_Password_Hash" placeholder="Nhập mật khẩu của bạn..." required>
+                <input type="password" id="password" name="HKKM_Password_Hash" placeholder="Nhập mật khẩu của bạn..."
+                    required>
             </div>
 
             <div class="options-area">
@@ -247,7 +282,9 @@
                 </label>
                 <a href="#">Quên mật khẩu?</a>
             </div>
-
+            <div class="back-to-home">
+                <a href="home.html">← Quay lại Trang Chủ</a>
+            </div>
             <button type="submit" class="btn-login">ĐĂNG NHẬP</button>
         </form>
 
@@ -259,11 +296,6 @@
             <a href="URL_XU_LY_GOOGLE_OAUTH" class="btn-social btn-google">
                 <i class="fab fa-google"></i> Tiếp tục với Google
             </a>
-            
-            <!-- Nút Đăng nhập Facebook -->
-            <a href="URL_XU_LY_FACEBOOK_OAUTH" class="btn-social btn-facebook">
-                <i class="fab fa-facebook-f"></i> Tiếp tục với Facebook
-            </a>
         </div>
         <!-- --------------------------------- -->
 
@@ -273,4 +305,5 @@
     </div>
 
 </body>
+
 </html>
