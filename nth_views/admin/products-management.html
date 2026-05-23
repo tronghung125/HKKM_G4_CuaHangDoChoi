@@ -42,21 +42,35 @@
         .search-box input { padding: 10px 15px; border: 2px solid #ddd; border-radius: 8px; width: 300px; outline: none; font-size: 0.95rem; }
         .search-box input:focus { border-color: var(--active-color); }
         
-        .btn-add-product { padding: 10px 20px; background-color: var(--success); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+        .btn-add-product { padding: 10px 20px; background-color: var(--success); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; gap: 5px; }
         .btn-add-product:hover { background-color: #27ae60; }
 
         /* DATA TABLE */
         .table-section { background-color: var(--white); padding: 25px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
         .data-table { width: 100%; border-collapse: collapse; }
-        .data-table th, .data-table td { padding: 14px; text-align: left; border-bottom: 1px solid #eee; }
+        .data-table th, .data-table td { padding: 14px; text-align: left; border-bottom: 1px solid #eee; vertical-align: middle; }
         .data-table th { background-color: #f8f9fa; color: #555; font-weight: 700; }
-        .product-img-mini { font-size: 1.8rem; text-align: center; width: 50px; }
+        .product-img-mini { font-size: 1.8rem; text-align: center; width: 50px; background: #f8f9fa; border-radius: 8px; display: inline-block; padding: 2px 8px; }
 
         /* ACTIONS BUTTONS */
-        .btn-edit { padding: 6px 12px; background-color: #ebf5fb; color: var(--active-color); border: none; border-radius: 6px; font-weight: 600; cursor: pointer; margin-right: 5px; }
+        .btn-edit { padding: 6px 12px; background-color: #ebf5fb; color: var(--active-color); border: none; border-radius: 6px; font-weight: 600; cursor: pointer; margin-right: 5px; transition: 0.2s; }
         .btn-edit:hover { background-color: var(--active-color); color: white; }
-        .btn-delete { padding: 6px 12px; background-color: #fdedec; color: var(--danger); border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .btn-delete { padding: 6px 12px; background-color: #fdedec; color: var(--danger); border: none; border-radius: 6px; font-weight: 600; cursor: pointer; transition: 0.2s; }
         .btn-delete:hover { background-color: var(--danger); color: white; }
+
+        /* MODAL POPUP STYLES */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1000; justify-content: center; align-items: center; }
+        .modal-box { background: var(--white); padding: 30px; border-radius: 15px; width: 100%; max-width: 450px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); display: flex; flex-direction: column; gap: 15px; }
+        .modal-box h3 { border-bottom: 2px solid #eee; padding-bottom: 10px; color: var(--primary-admin); }
+        
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { font-size: 0.9rem; font-weight: 600; color: #555; }
+        .form-group input, .form-group select { padding: 10px; border: 2px solid #ddd; border-radius: 8px; font-size: 0.95rem; outline: none; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--active-color); }
+        
+        .modal-buttons { display: flex; justify-content: flex-end; gap: 10px; margin-top: 10px; }
+        .btn-cancel { padding: 10px 20px; background: #e0e0e0; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        .btn-submit { padding: 10px 20px; background: var(--active-color); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -82,9 +96,11 @@
         <main class="content-body">
             <div class="action-bar">
                 <div class="search-box">
-                    <input type="text" placeholder="Tìm tên sản phẩm, mã sản phẩm...">
+                    <!-- Tính năng tìm kiếm thời gian thực (Real-time search) -->
+                    <input type="text" id="admin-search" placeholder="Tìm tên sản phẩm..." oninput="searchProducts()">
                 </div>
-                <button class="btn-add-product" onclick="alert('Mở form thêm sản phẩm mới')">➕ Thêm sản phẩm mới</button>
+                <!-- Nút bấm kích hoạt mở Modal Thêm -->
+                <button class="btn-add-product" onclick="openModal('addModal')">➕ Thêm sản phẩm mới</button>
             </div>
 
             <div class="table-section">
@@ -99,45 +115,224 @@
                             <th>Thao Tác</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td class="product-img-mini">🏎️</td>
-                            <td><b>Xe Đua Địa Hình Cân Bằng</b></td>
-                            <td>Playground 2026</td>
-                            <td>450.000 đ</td>
-                            <td>12 chiếc</td>
-                            <td>
-                                <button class="btn-edit" onclick="alert('Sửa sản phẩm này')">Sửa</button>
-                                <button class="btn-delete" onclick="confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="product-img-mini">🤖</td>
-                            <td><b>Robot Nhảy Múa Thông Minh</b></td>
-                            <td>Playground 2026</td>
-                            <td>620.000 đ</td>
-                            <td>5 chiếc</td>
-                            <td>
-                                <button class="btn-edit" onclick="alert('Sửa sản phẩm này')">Sửa</button>
-                                <button class="btn-delete" onclick="confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="product-img-mini">🏰</td>
-                            <td><b>Lego Lâu Đài Cổ Tích 500 Chi Tiết</b></td>
-                            <td>Thùng Gạch Sáng Tạo</td>
-                            <td>890.000 đ</td>
-                            <td>24 chiếc</td>
-                            <td>
-                                <button class="btn-edit" onclick="alert('Sửa sản phẩm này')">Sửa</button>
-                                <button class="btn-delete" onclick="confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')">Xóa</button>
-                            </td>
-                        </tr>
+                    <tbody id="product-table-body">
+                        <!-- JavaScript sẽ tự sinh dữ liệu vào đây -->
                     </tbody>
                 </table>
             </div>
         </main>
     </div>
 
+    <!-- =========================================================
+         POPUP MODAL: THÊM MỚI SẢN PHẨM
+         ========================================================= -->
+    <div id="addModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>➕ Thêm Sản Phẩm Mới</h3>
+            <div class="form-group">
+                <label>Biểu tượng sản phẩm:</label>
+                <select id="add-img">
+                    <option value="🏎️">🏎️ Xe đua</option>
+                    <option value="🤖">🤖 Robot</option>
+                    <option value="🏰">🏰 Lâu đài Lego</option>
+                    <option value="🧸">🧸 Gấu bông</option>
+                    <option value="🧩">🧩 Xếp hình</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Tên đồ chơi:</label>
+                <input type="text" id="add-name" placeholder="Nhập tên sản phẩm...">
+            </div>
+            <div class="form-group">
+                <label>Danh mục phân loại:</label>
+                <select id="add-cat">
+                    <option value="Playground 2026">Playground 2026</option>
+                    <option value="Thùng Gạch Sáng Tạo">Thùng Gạch Sáng Tạo</option>
+                    <option value="Quà To Giá Nhỏ">Quà To Giá Nhỏ</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Giá bán (đ):</label>
+                <input type="text" id="add-price" placeholder="Ví dụ: 450.000">
+            </div>
+            <div class="form-group">
+                <label>Số lượng nhập kho:</label>
+                <input type="number" id="add-stock" placeholder="Ví dụ: 10" min="0">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal('addModal')">Hủy</button>
+                <button class="btn-submit" onclick="submitAddProduct()">Tạo Mới</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         POPUP MODAL: SỬA SẢN PHẨM
+         ========================================================= -->
+    <div id="editModal" class="modal-overlay">
+        <div class="modal-box">
+            <h3>✏️ Chỉnh Sửa Sản Phẩm</h3>
+            <!-- input hidden lưu tạm mã ID đang sửa -->
+            <input type="hidden" id="edit-id">
+            <div class="form-group">
+                <label>Tên đồ chơi:</label>
+                <input type="text" id="edit-name">
+            </div>
+            <div class="form-group">
+                <label>Danh mục phân loại:</label>
+                <select id="edit-cat">
+                    <option value="Playground 2026">Playground 2026</option>
+                    <option value="Thùng Gạch Sáng Tạo">Thùng Gạch Sáng Tạo</option>
+                    <option value="Quà To Giá Nhỏ">Quà To Giá Nhỏ</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Giá bán (đ):</label>
+                <input type="text" id="edit-price">
+            </div>
+            <div class="form-group">
+                <label>Số lượng kho hàng:</label>
+                <input type="number" id="edit-stock" min="0">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="closeModal('editModal')">Hủy</button>
+                <button class="btn-submit" style="background-color: var(--success);" onclick="submitEditProduct()">Cập Nhật</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CODE XỬ LÝ LOGIC NGHIỆP VỤ SỬA / XÓA / THÊM -->
+    <script>
+        // Mảng cơ sở dữ liệu gốc ban đầu
+        let products = [
+            { id: 1, img: "🏎️", name: "Xe Đua Địa Hình Cân Bằng", category: "Playground 2026", price: "450.000 đ", stock: 12 },
+            { id: 2, img: "🤖", name: "Robot Nhảy Múa Thông Minh", category: "Playground 2026", price: "620.000 đ", stock: 5 },
+            { id: 3, img: "🏰", name: "Lego Lâu Đài Cổ Tích 500 Chi Tiết", category: "Thùng Gạch Sáng Tạo", price: "890.000 đ", stock: 24 }
+        ];
+
+        // 1. HÀM HIỂN THỊ DANH SÁCH (RENDER TABLE)
+        function renderTable(dataArray) {
+            const tableBody = document.getElementById("product-table-body");
+            tableBody.innerHTML = ""; // Xóa dữ liệu cũ
+
+            if(dataArray.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#999; padding:20px;">Không tìm thấy sản phẩm phù hợp.</td></tr>`;
+                return;
+            }
+
+            dataArray.forEach(product => {
+                tableBody.innerHTML += `
+                    <tr>
+                        <td><span class="product-img-mini">${product.img}</span></td>
+                        <td><b>${product.name}</b></td>
+                        <td>${product.category}</td>
+                        <td style="color: var(--danger); font-weight:700;">${product.price}</td>
+                        <td>${product.stock} chiếc</td>
+                        <td>
+                            <button class="btn-edit" onclick="openEditView(${product.id})">Sửa</button>
+                            <button class="btn-delete" onclick="deleteProduct(${product.id})">Xóa</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        // Đóng/Mở Modal 
+        function openModal(modalId) { document.getElementById(modalId).style.display = "flex"; }
+        function closeModal(modalId) { document.getElementById(modalId).style.display = "none"; }
+
+        // 2. TÍNH NĂNG THÊM MỚI SẢN PHẨM
+        function submitAddProduct() {
+            const name = document.getElementById("add-name").value.trim();
+            const category = document.getElementById("add-cat").value;
+            const price = document.getElementById("add-price").value.trim();
+            const stock = document.getElementById("add-stock").value;
+            const img = document.getElementById("add-img").value;
+
+            if(!name || !price || !stock) {
+                alert("Vui lòng điền đầy đủ các thông tin!");
+                return;
+            }
+
+            const newProduct = {
+                id: Date.now(), // Tạo ID ngẫu nhiên không trùng lập
+                img: img,
+                name: name,
+                category: category,
+                price: price.endsWith(" đ") ? price : price + " đ",
+                stock: parseInt(stock)
+            };
+
+            products.push(newProduct); // Thêm vào mảng nguồn
+            renderTable(products); // Vẽ lại bảng
+            closeModal("addModal"); // Đóng popup
+
+            // Reset form
+            document.getElementById("add-name").value = "";
+            document.getElementById("add-price").value = "";
+            document.getElementById("add-stock").value = "";
+        }
+
+        // 3. TÍNH NĂNG ĐƯA DỮ LIỆU CŨ LÊN FORM SỬA
+        function openEditView(id) {
+            const currentProduct = products.find(p => p.id === id);
+            if(!currentProduct) return;
+
+            // Đổ dữ liệu cũ vào form modal sửa
+            document.getElementById("edit-id").value = currentProduct.id;
+            document.getElementById("edit-name").value = currentProduct.name;
+            document.getElementById("edit-cat").value = currentProduct.category;
+            document.getElementById("edit-price").value = currentProduct.price.replace(" đ", "");
+            document.getElementById("edit-stock").value = currentProduct.stock;
+
+            openModal("editModal");
+        }
+
+        // LƯU CẬP NHẬT SAU KHI SỬA
+        function submitEditProduct() {
+            const id = parseInt(document.getElementById("edit-id").value);
+            const name = document.getElementById("edit-name").value.trim();
+            const category = document.getElementById("edit-cat").value;
+            const price = document.getElementById("edit-price").value.trim();
+            const stock = document.getElementById("edit-stock").value;
+
+            if(!name || !price || !stock) {
+                alert("Không được bỏ trống thông tin sản phẩm!");
+                return;
+            }
+
+            // Cập nhật giá trị mới vào mảng phần tử
+            const targetIndex = products.findIndex(p => p.id === id);
+            if(targetIndex !== -1) {
+                products[targetIndex].name = name;
+                products[targetIndex].category = category;
+                products[targetIndex].price = price.endsWith(" đ") ? price : price + " đ";
+                products[targetIndex].stock = parseInt(stock);
+
+                renderTable(products);
+                closeModal("editModal");
+            }
+        }
+
+        // 4. TÍNH NĂNG XÓA SẢN PHẨM
+        function deleteProduct(id) {
+            if(confirm("Bạn có chắc chắn muốn loại bỏ sản phẩm đồ chơi này khỏi danh sách quản lý không?")) {
+                products = products.filter(p => p.id !== id);
+                renderTable(products);
+            }
+        }
+
+        // 5. TÍNH NĂNG TÌM KIẾM SẢN PHẨM (MỞ RỘNG THÊM GIÚP BẠN)
+        function searchProducts() {
+            const keyword = document.getElementById("admin-search").value.toLowerCase().trim();
+            const filteredProducts = products.filter(p => p.name.toLowerCase().includes(keyword));
+            renderTable(filteredProducts);
+        }
+
+        // Chạy hiển thị dữ liệu gốc ngay lần đầu chạy trang
+        window.onload = function() {
+            renderTable(products);
+        };
+    </script>
 </body>
 </html>
